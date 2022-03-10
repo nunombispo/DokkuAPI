@@ -4,15 +4,16 @@ import json
 
 
 def __execute_command(command):
-    stdout.write(f'Executing command: {command}')
+    stdout.write(f'\nExecuting command: {command}')
     success, message = run_command(command)
-    stdout.write(f'Success: {success}')
-    stdout.write(f'Message: {message}')
+    stdout.write(f'\nSuccess: {success}')
+    stdout.write(f'\nMessage: {message}')
     if success:
-        json_output = json.loads(message)
-        stdout.write(f'JSON: {json_output}')
-        success = True if json_output['ok'] == 'true' else False
-        message = json_output['output']
+        if message is not None:
+            json_output = json.loads(message)
+            stdout.write(f'\nJSON: {json_output}')
+            success = True if json_output['ok'] == 'true' else False
+            message = json_output['output']
     return success, message
 
 
