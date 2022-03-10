@@ -15,7 +15,7 @@ def run_command(command, timeout=60):
         '-U', daemon_socket,  # socket to talk to
     ]
 
-    ps = subprocess.Popen(command, stdout=subprocess.PIPE)
+    ps = subprocess.Popen(['echo', command], stdout=subprocess.PIPE)
 
     with subprocess.Popen(
             subprocess_command,
