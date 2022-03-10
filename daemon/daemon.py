@@ -10,8 +10,8 @@ def run_command(command, timeout=60):
 
     subprocess_command = [
         'nc',
-        '-q', '2',            # time to wait after eof
-        '-w', '2',            # timeout
+        '-q', '10',            # time to wait after eof
+        '-w', '60',            # timeout
         '-U', daemon_socket,  # socket to talk to
     ]
 

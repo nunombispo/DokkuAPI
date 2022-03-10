@@ -9,7 +9,7 @@ def __execute_command(command):
     stdout.write(f'Result: {success}\n')
     stdout.write(f'Output: {message}')
     if success:
-        if message is not None:
+        if message is not None or message != '':
             json_output = json.loads(message)
             stdout.write(f'JSON: {json_output}\n\n')
             success = json_output['ok']
