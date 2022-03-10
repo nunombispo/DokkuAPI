@@ -4,6 +4,9 @@ from config import settings
 from daemon import commands
 
 # Defining our API router
+from router.models import AppModel
+
+
 def get_router(app):
     # Create a FastAPI router
     router = APIRouter()
@@ -23,9 +26,13 @@ def get_router(app):
 
     # Create an application
     @router.post("/app", response_description="Create an application")
-    async def create_app(request: Request, app_name: str = Body(..., embed=True)):
-        success, message = commands.create_app(app_name)
-        return JSONResponse(status_code=status.HTTP_200_OK, content=message)
+    async def create_app(request: Request, app_model: AppModel):
+        success, message = commands.create_app(app_model.name)
+        content = {"success": success, "message": message}
+        if success:
+            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+        else:
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
 
     # We return our router
     return router
