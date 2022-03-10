@@ -25,9 +25,29 @@ def get_router(app):
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     # Create an application
-    @router.post("/app", response_description="Create an application")
+    @router.post("/apps", response_description="Create an application")
     async def create_app(request: Request, app_model: AppModel):
         success, message = commands.create_app(app_model.name)
+        content = {"success": success, "message": message}
+        if success:
+            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+        else:
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
+
+    # Delete an application
+    @router.delete("/apps", response_description="Delete an application")
+    async def delete_app(request: Request, app_model: AppModel):
+        success, message = commands.delete_app(app_model.name)
+        content = {"success": success, "message": message}
+        if success:
+            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+        else:
+            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
+
+    # List all applications
+    @router.get("/apps", response_description="List all applications")
+    async def list_apps(request: Request):
+        success, message = commands.list_apps()
         content = {"success": success, "message": message}
         if success:
             return JSONResponse(status_code=status.HTTP_200_OK, content=content)
