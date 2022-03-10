@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, status, Body
 from fastapi.responses import JSONResponse
 from config import settings
-
+from daemon import commands
 
 # Defining our API router
 def get_router(app):
@@ -20,6 +20,12 @@ def get_router(app):
             "email": "developer@developer-service.io",
         }
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    # Create an application
+    @router.post("/app", response_description="Create an application")
+    async def create_app(request: Request, app_name: str = Body(..., embed=True)):
+        success, message = commands.create_app(app_name)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=message)
 
     # We return our router
     return router
