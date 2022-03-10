@@ -1,1 +1,1 @@
-web: uvicorn api.api:app
+web: uvicorn api.api:app --host 0.0.0.0
