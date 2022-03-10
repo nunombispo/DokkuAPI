@@ -6,7 +6,7 @@ import subprocess
 def run_command(command, timeout=60):
     daemon_socket = '/var/run/dokku-daemon/dokku-daemon.sock'
     if not os.path.exists(daemon_socket) or not os.access(daemon_socket, os.W_OK):
-        return False
+        return False, 'Dokku daemon is not running'
 
     subprocess_command = [
         'nc',
