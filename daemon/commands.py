@@ -12,7 +12,7 @@ def __execute_command(command):
         if message is not None:
             json_output = json.loads(message)
             stdout.write(f'\nJSON: {json_output}')
-            success = True if json_output['ok'] == 'true' else False
+            success = True if json_output['ok'] == 'True' else False
             message = json_output['output']
     return success, message
 
