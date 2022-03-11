@@ -1,7 +1,7 @@
 import os
 import socket
 
-daemon_socket = "/var/run/dokku-api/daemon.sock"
+daemon_socket = "/tmp/dokku-api/daemon.sock"
 
 
 def run_command(command):
