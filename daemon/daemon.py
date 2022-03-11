@@ -6,7 +6,7 @@ from socket import socket
 
 def run_command(command, timeout=60):
     daemon_socket = '/tmp/socket_test.s'
-    if not os.path.exists(daemon_socket) or not os.access(daemon_socket, os.W_OK):
+    if not os.path.exists(daemon_socket):
         return False, 'Dokku daemon is not running'
     x = command
     client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)

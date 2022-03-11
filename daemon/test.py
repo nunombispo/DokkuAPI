@@ -1,3 +1,4 @@
+
 import socket
 import os, os.path
 import subprocess
@@ -12,10 +13,14 @@ while True:
     conn, addr = server.accept()
     datagram = conn.recv(1024)
     if datagram:
-      print(datagram)
-        process = subprocess.Popen(datagram,
+        print(datagram)
+        list = datagram.decode('utf-8').split(',')
+        print(list)
+        process = subprocess.Popen(list,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
+        print(stdout)
         conn.send(stdout)
         conn.close()
+
