@@ -19,21 +19,21 @@ def __execute_command(command):
 
 # Creates an application
 def create_app(app_name):
-    command = f'apps:create {app_name}'
+    command = f'dokku,apps:create,{app_name}'
     success, message = __execute_command(command)
     return success, message
 
 
 # Deletes an application
 def delete_app(app_name):
-    command = f'--force apps:destroy {app_name}'
+    command = f'dokku,--force,apps:destroy,{app_name}'
     success, message = __execute_command(command)
     return success, message
 
 
 # Lists all applications
 def list_apps():
-    command = 'apps:list'
+    command = 'dokku,apps:list'
     success, message = __execute_command(command)
     return success, message
 
