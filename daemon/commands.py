@@ -1,6 +1,5 @@
 from sys import stdout
 from daemon.daemon import run_command
-import json
 
 
 def __execute_command(command):
