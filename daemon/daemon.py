@@ -15,6 +15,5 @@ def run_command(command):
         result = client.recv(4096)
     except Exception as e:
         return False, str(e)
-    client.close()
 
     return True, result.decode('utf-8')
