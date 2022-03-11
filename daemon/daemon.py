@@ -9,7 +9,7 @@ def run_command(command, timeout=60):
     if not os.path.exists(daemon_socket):
         return False, 'Dokku daemon is not running'
     x = command
-    client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    client = socket(socket.AF_UNIX, socket.SOCK_STREAM)
     client.connect("/tmp/socket_test.s")
     print("SEND:", x)
     client.send(x.encode('utf-8'))
