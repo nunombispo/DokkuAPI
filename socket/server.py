@@ -2,7 +2,7 @@ import socket
 import os.path
 import subprocess
 
-daemon_socket = "/tmp/dokku-api/daemon.sock"
+daemon_socket = "/tmp/socket_test.s"
 
 
 def setup_server():
@@ -37,9 +37,9 @@ def process_command(command):
 def main():
     server = setup_server()
     while True:
+        server.listen(1)
+        connection, address = server.accept()
         try:
-            server.listen(1)
-            connection, address = server.accept()
             data = connection.recv(4096)
             if data:
                 data = data.decode('utf-8')

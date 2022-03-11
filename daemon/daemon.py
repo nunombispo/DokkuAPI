@@ -13,8 +13,8 @@ def run_command(command):
         client.connect(daemon_socket)
         client.send(command.encode('utf-8'))
         result = client.recv(4096)
-        client.close()
     except Exception as e:
         return False, str(e)
+    client.close()
 
     return True, result.decode('utf-8')
