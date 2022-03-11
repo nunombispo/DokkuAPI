@@ -1,7 +1,9 @@
 import os
 import socket
+from config import settings
 
-daemon_socket = "/tmp/socket_test.s"
+
+daemon_socket = settings.DAEMON_SOCKET_PATH
 
 
 def run_command(command):
@@ -13,7 +15,9 @@ def run_command(command):
         client.connect(daemon_socket)
         client.send(command.encode('utf-8'))
         result = client.recv(4096)
+        client.close()
     except Exception as e:
         return False, str(e)
 
     return True, result.decode('utf-8')
+

@@ -21,7 +21,7 @@ class DatabaseSettings(BaseSettings):
 
 # Main Settings class that includes all the settings classes
 class Settings(CommonSettings, ServerSettings, DatabaseSettings):
-    pass
+    DAEMON_SOCKET_PATH: str = config('DAEMON_SOCKET_PATH')
 
 
 # We create a settings variable that will be used in the other files
