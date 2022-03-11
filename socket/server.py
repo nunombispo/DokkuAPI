@@ -2,7 +2,7 @@ import socket
 import os.path
 import subprocess
 
-daemon_socket = "/tmp/socket_test.s"
+daemon_socket = "/tmp/dokku-api.sock"
 
 
 def setup_server():
