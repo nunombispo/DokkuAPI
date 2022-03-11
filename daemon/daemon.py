@@ -1,16 +1,20 @@
 import os
 import socket
 
+daemon_socket = "/var/run/dokku-api/daemon.sock"
 
-def run_command(command, timeout=60):
-    daemon_socket = '/tmp/socket_test.s'
+
+def run_command(command):
     if not os.path.exists(daemon_socket):
         return False, 'Dokku daemon is not running'
-    x = command
+
     client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    client.connect("/tmp/socket_test.s")
-    print("SEND:", x)
-    client.send(x.encode('utf-8'))
-    result = client.recv(1024)
+    try:
+        client.connect(daemon_socket)
+        client.send(command.encode('utf-8'))
+        result = client.recv(4096)
+        client.close()
+    except Exception as e:
+        return False, str(e)
 
     return True, result.decode('utf-8')
