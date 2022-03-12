@@ -3,10 +3,8 @@ from fastapi.responses import JSONResponse
 from config import settings
 from commands import commands
 
+
 # Defining our API router
-from router.models import AppModel
-
-
 def get_router(app):
     # Create a FastAPI router
     router = APIRouter()
@@ -25,34 +23,53 @@ def get_router(app):
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     # Create an application
-    @router.post("/apps", response_description="Create an application")
-    async def create_app(request: Request, app_model: AppModel):
-        success, message = commands.create_app(app_model.name)
+    @router.post("/apps/{app_name}", response_description="Create an application")
+    async def create_app(request: Request, app_name: str):
+        success, message = commands.create_app(app_name)
         content = {"success": success, "message": message}
-        if success:
-            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
-        else:
-            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
 
     # Delete an application
-    @router.delete("/apps", response_description="Delete an application")
-    async def delete_app(request: Request, app_model: AppModel):
-        success, message = commands.delete_app(app_model.name)
+    @router.delete("/apps/{app_name}", response_description="Delete an application")
+    async def delete_app(request: Request, app_name: str):
+        success, message = commands.delete_app(app_name)
         content = {"success": success, "message": message}
-        if success:
-            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
-        else:
-            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
 
     # List all applications
     @router.get("/apps", response_description="List all applications")
     async def list_apps(request: Request):
         success, message = commands.list_apps()
         content = {"success": success, "message": message}
-        if success:
-            return JSONResponse(status_code=status.HTTP_200_OK, content=content)
-        else:
-            return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=content)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+
+    # List plugins
+    @router.get("/plugins", response_description="List all plugins")
+    async def list_plugins(request: Request):
+        success, message = commands.list_plugins()
+        content = {"success": success, "message": message}
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+
+    # Check if plugin is installed
+    @router.get("/plugins/{plugin}", response_description="Check if plugin is installed")
+    async def is_plugin_installed(request: Request, plugin: str):
+        success, message = commands.is_plugin_installed(plugin)
+        content = {"success": success, "message": message}
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+
+    # Install plugin
+    @router.post("/plugins/{plugin}", response_description="Install plugin")
+    async def install_plugin(request: Request, plugin: str):
+        success, message = commands.install_plugin(plugin)
+        content = {"success": success, "message": message}
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+
+    # Uninstall plugin
+    @router.delete("/plugins/{plugin}", response_description="Uninstall plugin")
+    async def uninstall_plugin(request: Request, plugin: str):
+        success, message = commands.uninstall_plugin(plugin)
+        content = {"success": success, "message": message}
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
 
     # We return our router
     return router
