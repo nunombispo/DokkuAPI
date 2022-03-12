@@ -11,7 +11,10 @@ class CommonSettings(BaseSettings):
 
 # Define the ServerSettings class (inherits from BaseSettings)
 class ServerSettings(BaseSettings):
-    pass
+    SSH_HOSTNAME: str = config('SSH_HOSTNAME')
+    SSH_PORT: int = config('SSH_PORT', cast=int)
+    SSH_KEY_PATH: str = config('SSH_KEY_PATH')
+    SSH_KEY_PASSPHRASE: str = config('SSH_KEY_PASSPHRASE')
 
 
 # Define the DatabaseSettings class (inherits from BaseSettings)

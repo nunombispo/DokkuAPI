@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, status, Body
 from fastapi.responses import JSONResponse
 from config import settings
-from daemon import commands
+from commands import commands
 
 # Defining our API router
 from router.models import AppModel
