@@ -63,6 +63,8 @@ def install_plugin(plugin_name):
         command = 'plugin:install https://github.com/dokku/dokku-postgres.git'
     elif plugin_name == 'mysql':
         command = 'plugin:install https://github.com/dokku/dokku-mysql.git mysql'
+    elif plugin_name == 'letsencrypt':
+        command = 'plugin:install https://github.com/dokku/dokku-letsencrypt.git'
     else:
         return False, 'Plugin not found'
     success, message = __execute_root_command(command)
@@ -139,6 +141,43 @@ def unlink_database(plugin_name, database_name, app_name):
     if plugin_name != 'postgres' and plugin_name != 'mysql':
         return False, 'Plugin not found'
     command = f'{plugin_name}:unlink {database_name} {app_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Set domain for an app
+def set_domain(app_name, domain):
+    command = f'domains:set {app_name} {domain}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Remove domain for an app
+def remove_domain(app_name, domain):
+    command = f'domains:remove {app_name} {domain}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Set LetsEncrypt mail
+def set_letsencrypt_mail(email):
+    command = f'config:set --global DOKKU_LETSENCRYPT_EMAIL={email}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Enable LetsEncrypt for an app
+def enable_letsencrypt(app_name):
+    command = f'letsencrypt:enable {app_name}'
+    success, message = __execute_command(command)
+    if 'retrieval failed' in message:
+        return False, message
+    return success,
+
+
+# Enable LetsEncrypt auto renewal
+def enable_letsencrypt_auto_renewal():
+    command = f'letsencrypt:cron-job --add'
     success, message = __execute_command(command)
     return success, message
 
