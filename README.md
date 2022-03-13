@@ -34,29 +34,21 @@ $ dokku apps:create dokku-api
 
 The Dokku API depends on a couple of ENV variables for specific settings, so the following ENV values must be configured:
 ```
-
-dokku config:set dokku-api
-API_NAME="Dokku API"
-API_VERSION_NUMBER="0.1"
-SSH_HOSTNAME="10.20.0.25"
-SSH_PORT="22"
-SSH_KEY_PATH="ssh_private_key"
-SSH_KEY_PASSPHRASE="labolg3189981bispo"
-
+# Setting dokku-api ENV variables
+dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE=""
 ```
-
+(Please set the appropriate values for your setup, SSH_HOSTNAME and SSH_KEY_PASSPHRASE if your private key has a passphrase)
 
 The Dokku API also depends on SSH access to the Dokku server to run the commands, which means that SSH keys must be configured and mounted on the Dokku API application.
 ```
+# Create directory for SSH private key
+$ sudo mkdir /dokku-api
 
-sudo mkdir /dokku-api
+# Creating private key (copy here the contents of the private key you use to access the Dokky server)
+$ sudo nano /dokku-api/id_rsa
 
-sudo nano /dokku-api/id_rsa
-
-dokku storage:mount dokku-api /dokku-api/:/dokku-api/
-
-dokku config:set SSH_KEY_PATH="/dokku-api/id_rsa"
-
+# Mounting the directory inside the dokku-api application
+$ dokku storage:mount dokku-api /dokku-api/:/dokku-api/
 ```
 
 # Installation
