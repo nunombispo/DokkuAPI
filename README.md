@@ -58,6 +58,9 @@ On your local machine run the following commands:
 # Clone project
 $ git clone https://github.com/nunombispo/DokkuAPI.git
 
+# Change dir
+$ cd DokkuAPI
+
 # Add your Dokku server as a remote
 $ git remote add dokku dokku@[domain]:dokku-api
 
