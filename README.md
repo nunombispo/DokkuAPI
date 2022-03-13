@@ -20,7 +20,8 @@ Current supported features:
 More features are planned to be added soon. The current features allows to deploy an application, set a datastore (database), set domain and enable HTTPS certificates.
 
 # Security
-No security is currently implemented in the API. After deployment it is available on the deployment URL or IP:PORT address with ACL.
+No security is currently implemented in the API. After deployment it is available on the deployment URL or IP:PORT address without any security. Be aware of this if you expose it externally.
+An API token feature is planned to be added soon.
 
 
 # Pre-requisites
@@ -52,6 +53,7 @@ $ dokku storage:mount dokku-api /dokku-api/:/dokku-api/
 ```
 
 # Installation
+On your local machine run the following commands:
 ```
 # Clone project
 $ git clone https://github.com/nunombispo/DokkuAPI.git
