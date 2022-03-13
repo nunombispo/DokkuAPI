@@ -6,7 +6,7 @@ def __execute_command(command):
     stdout.write(f'\nExecuting command: {command}\n')
     success, message = run_command(command)
     stdout.write(f'Result: {success}\n')
-    stdout.write(f'Output: {message}`n')
+    stdout.write(f'Output: {message}\n')
     return success, message
 
 
@@ -74,4 +74,72 @@ def uninstall_plugin(plugin_name):
     command = f'plugin:uninstall {plugin_name}'
     success, message = __execute_root_command(command)
     return success, message
+
+
+# Create a database
+def create_database(plugin_name, database_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'{plugin_name}:create {database_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# List databases
+def list_databases(plugin_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'{plugin_name}:list'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Check if a database exists
+def database_exists(plugin_name, database_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    success, message = list_databases(plugin_name)
+    if success:
+        for database in message.split('\n'):
+            if database_name in database:
+                return True, 'Database exists'
+        return False, 'Database does not exist'
+    return False, message
+
+
+# Delete a database
+def delete_database(plugin_name, database_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'--force {plugin_name}:destroy {database_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# List linked apps
+def database_linked_apps(plugin_name, database_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'{plugin_name}:links {database_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Link database to an app
+def link_database(plugin_name, database_name, app_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'{plugin_name}:link {database_name} {app_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Unlink database from an app
+def unlink_database(plugin_name, database_name, app_name):
+    if plugin_name != 'postgres' and plugin_name != 'mysql':
+        return False, 'Plugin not found'
+    command = f'{plugin_name}:unlink {database_name} {app_name}'
+    success, message = __execute_command(command)
+    return success, message
+
 
