@@ -5,7 +5,7 @@ This API is built with FastAPI and you can access the docs after installation at
 
 
 # Introduction
-This api allows access with a Dokku installation with an HTTP REST API. This enables more possibilities to remote management of a Dokku server and also for automate application deployment. 
+This api allows access with a Dokku installation with an HTTP REST API. This enables more possibilities to remote management of a Dokku server and also for automating application deployment. 
 
 The goal is to provide a standard way of accessing Dokku installations with a remote API, something that Dokku is missing.
 
