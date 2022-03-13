@@ -38,7 +38,7 @@ The Dokku API depends on a couple of ENV variables for specific settings, so the
 # Setting dokku-api ENV variables
 dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE=""
 ```
-(Please set the appropriate values for your setup, SSH_HOSTNAME and SSH_KEY_PASSPHRASE if your private key has a passphrase)
+Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address) and SSH_KEY_PASSPHRASE if your private key has a passphrase.
 
 The Dokku API also depends on SSH access to the Dokku server to run the commands, which means that SSH keys must be configured and mounted on the Dokku API application.
 ```
