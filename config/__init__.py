@@ -24,7 +24,8 @@ class DatabaseSettings(BaseSettings):
 
 # Main Settings class that includes all the settings classes
 class Settings(CommonSettings, ServerSettings, DatabaseSettings):
-    pass
+    API_KEY: str = config('API_KEY')
+
 
 # We create a settings variable that will be used in the other files
 settings = Settings()
