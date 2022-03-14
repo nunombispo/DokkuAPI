@@ -1,11 +1,11 @@
 # Dokku API
 Dokku API - API to interface with a Dokku installation
 
-This API is built with FastAPI and you can access the docs after installation at [dokku-api-domain]/docs. You can also use the FastAPI docs to test and trial the api methods.
+This API is built with FastAPI and you can access the docs after installation at [dokku-api-domain]/docs. You can also use the FastAPI docs to test and trial the API methods.
 
 
 # Introduction
-This api allows access with a Dokku installation with an HTTP REST API. This enables more possibilities to remote management of a Dokku server and also for automating application deployment. 
+This API allows access with a Dokku installation with an HTTP REST API. This enables more possibilities to remote management of a Dokku server and also for automating application deployment. 
 
 The goal is to provide a standard way of accessing Dokku installations with a remote API, something that Dokku is missing.
 
@@ -20,8 +20,7 @@ Current supported features:
 More features are planned to be added soon. The current features allows to deploy an application, set a datastore (database), set domain and enable HTTPS certificates.
 
 # Security
-No security is currently implemented in the API. After deployment it is available on the deployment URL or IP:PORT address without any security. Be aware of this if you expose it externally.
-An API token feature is planned to be added soon.
+The API is secured with an API KEY that is passed in the header for each request. The API KEY is defined as an ENV variable and must be passed on all requests except the call to the API metadata.
 
 
 # Pre-requisites
@@ -36,9 +35,11 @@ $ dokku apps:create dokku-api
 The Dokku API depends on a couple of ENV variables for specific settings, so the following ENV values must be configured:
 ```
 # Setting dokku-api ENV variables
-dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE=""
+dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE="" API_KEY=""
 ```
-Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address) and SSH_KEY_PASSPHRASE if your private key has a passphrase.
+Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address), SSH_KEY_PASSPHRASE if your private key has a passphrase and API_KEY for the acces token between the API and the consuming application.
+
+You can use for instance a UUID generator for the API_KEY, like: https://www.uuidgenerator.net/
 
 The Dokku API also depends on SSH access to the Dokku server to run the commands, which means that SSH keys must be configured and mounted on the Dokku API application.
 ```
