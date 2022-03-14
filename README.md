@@ -35,9 +35,9 @@ $ dokku apps:create dokku-api
 The Dokku API depends on a couple of ENV variables for specific settings, so the following ENV values must be configured:
 ```
 # Setting dokku-api ENV variables
-dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE="" API_KEY=""
+dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1.1" SSH_HOSTNAME="" SSH_PORT="22"  SSH_KEY_PATH="/dokku-api/id_rsa" SSH_KEY_PASSPHRASE="" API_KEY=""
 ```
-Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address), SSH_KEY_PASSPHRASE if your private key has a passphrase and API_KEY for the acces token between the API and the consuming application.
+Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address), SSH_KEY_PASSPHRASE if your private key has a passphrase and API_KEY for the access token between the API and the consuming application.
 
 You can use for instance a UUID generator for the API_KEY, like: https://www.uuidgenerator.net/
 
