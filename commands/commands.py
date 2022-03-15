@@ -182,3 +182,38 @@ def enable_letsencrypt_auto_renewal():
     return success, message
 
 
+# List application configurations
+def config_show(app_name):
+    command = f'config:show {app_name}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Set application configuration key
+def config_set(app_name, key, value):
+    command = f'config:set --no-restart {app_name} {key}={value}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Set application configuration from file
+def config_file(app_name, contents):
+    keys = ''
+    cleaned_contents = contents.decode('utf-8').replace('\r', '')
+    list_of_lines = cleaned_contents.split('\n')
+    for line in list_of_lines:
+        if line != '':
+            if line.startswith('#'):
+                continue
+            keys = keys + line + ' '
+    command = f'config:set --no-restart {app_name} {keys}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Apply application configuration
+def config_apply(app_name):
+    command = f'ps:rebuild {app_name}'
+    success, message = __execute_command(command)
+    return success, message
+

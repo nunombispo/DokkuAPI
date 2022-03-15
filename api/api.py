@@ -5,6 +5,7 @@ from router.apps import get_router as app_router
 from router.plugins import get_router as plugin_router
 from router.databases import get_router as database_router
 from router.domains import get_router as domain_router
+from router.config import get_router as config_router
 
 # Create the FastAPP app
 app = FastAPI()
@@ -32,4 +33,5 @@ app.include_router(app_router(app), tags=["Apps"], prefix="/api")
 app.include_router(plugin_router(app), tags=["Plugins"], prefix="/api")
 app.include_router(database_router(app), tags=["Databases"], prefix="/api")
 app.include_router(domain_router(app), tags=["Domains"], prefix="/api")
+app.include_router(config_router(app), tags=["Config"], prefix="/api")
 
