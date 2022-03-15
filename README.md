@@ -16,6 +16,7 @@ Current supported features:
 - Plugins (list, check if plugin is installed, install, uninstall), currently only supports Postgres, MySQL and LetsEncrypt plugins
 - Databases (list, check database exists, create, delete, list linked apps, link, unlink)
 - Domains (set, remove, set LetsEncrypt root mail, enable LetsEncrypt for app, enable auto renewal)
+- Config (show, set value for key, set keys from file, unset key, apply configurations)
 
 More features are planned to be added soon. The current features allows to deploy an application, set a datastore (database), set domain and enable HTTPS certificates.
 
