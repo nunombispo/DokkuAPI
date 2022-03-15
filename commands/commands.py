@@ -191,14 +191,14 @@ def config_show(app_name):
 
 # Set application configuration key
 def config_set(app_name, key, value):
-    command = f'--no-restart config:set {app_name} {key}={value}'
+    command = f'config:set --no-restart {app_name} {key}={value}'
     success, message = __execute_command(command)
     return success, message
 
 
 # Unset application configuration key
 def config_unset(app_name, key):
-    command = f'--no-restart config:unset {app_name} {key}'
+    command = f'config:unset --no-restart {app_name} {key}'
     success, message = __execute_command(command)
     return success, message
 
@@ -213,7 +213,7 @@ def config_file(app_name, contents):
             if line.startswith('#'):
                 continue
             keys = keys + line + ' '
-    command = f'--no-restart config:set {app_name} {keys}'
+    command = f'config:set --no-restart {app_name} {keys}'
     success, message = __execute_command(command)
     return success, message
 
