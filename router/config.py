@@ -36,6 +36,15 @@ def get_router(app):
         content = {"success": success, "message": message}
         return JSONResponse(status_code=status.HTTP_200_OK, content=content)
 
+    # Unset application configuration key
+    @router.delete("/config/{app_name}/{key}",
+                   response_description="Unset application configuration key (without restart)")
+    async def config_unset(request: Request, app_name: str, key: str,
+                           api_key: APIKey = Depends(validate_api_key)):
+        success, message = commands.config_unset(app_name, key)
+        content = {"success": success, "message": message}
+        return JSONResponse(status_code=status.HTTP_200_OK, content=content)
+
     # Apply application configuration
     @router.post("/config/{app_name}/keys/apply/restart",
                  response_description="Apply application configuration (with restart)")

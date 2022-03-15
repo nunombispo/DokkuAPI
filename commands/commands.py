@@ -131,7 +131,7 @@ def database_linked_apps(plugin_name, database_name):
 def link_database(plugin_name, database_name, app_name):
     if plugin_name != 'postgres' and plugin_name != 'mysql':
         return False, 'Plugin not found'
-    command = f'{plugin_name}:link {database_name} {app_name}'
+    command = f'--no-restart {plugin_name}:link {database_name} {app_name}'
     success, message = __execute_command(command)
     return success, message
 
@@ -140,7 +140,7 @@ def link_database(plugin_name, database_name, app_name):
 def unlink_database(plugin_name, database_name, app_name):
     if plugin_name != 'postgres' and plugin_name != 'mysql':
         return False, 'Plugin not found'
-    command = f'{plugin_name}:unlink {database_name} {app_name}'
+    command = f'--no-restart {plugin_name}:unlink {database_name} {app_name}'
     success, message = __execute_command(command)
     return success, message
 
@@ -191,7 +191,14 @@ def config_show(app_name):
 
 # Set application configuration key
 def config_set(app_name, key, value):
-    command = f'config:set --no-restart {app_name} {key}={value}'
+    command = f'--no-restart config:set {app_name} {key}={value}'
+    success, message = __execute_command(command)
+    return success, message
+
+
+# Unset application configuration key
+def config_unset(app_name, key):
+    command = f'--no-restart config:unset {app_name} {key}'
     success, message = __execute_command(command)
     return success, message
 
@@ -206,7 +213,7 @@ def config_file(app_name, contents):
             if line.startswith('#'):
                 continue
             keys = keys + line + ' '
-    command = f'config:set --no-restart {app_name} {keys}'
+    command = f'--no-restart config:set {app_name} {keys}'
     success, message = __execute_command(command)
     return success, message
 
