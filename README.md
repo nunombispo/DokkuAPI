@@ -40,14 +40,14 @@ dokku config:set dokku-api API_NAME="Dokku API" API_VERSION_NUMBER="0.1.1" SSH_H
 ```
 Please set the appropriate values for your setup, SSH_HOSTNAME of your Dokku server (or IP address), SSH_KEY_PASSPHRASE if your private key has a passphrase and API_KEY for the access token between the API and the consuming application.
 
-You can use for instance a UUID generator for the API_KEY, like: https://www.uuidgenerator.net/
+You can use for instance a UUID generator for the API_KEY, like: https://www.uuidgenerator.net/ or by running `uuidgen` in your terminal.
 
 The Dokku API also depends on SSH access to the Dokku server to run the commands, which means that SSH keys must be configured and mounted on the Dokku API application.
 ```
 # Create directory for SSH private key
 $ sudo mkdir /dokku-api
 
-# Creating private key (copy here the contents of the private key you use to access the Dokky server)
+# Creating private key (copy here the contents of the private key you use to access the Dokku server)
 $ sudo nano /dokku-api/id_rsa
 
 # Mounting the directory inside the dokku-api application
