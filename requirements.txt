@@ -4,7 +4,7 @@ bcrypt==3.2.0
 cffi==1.15.0
 click==8.0.4
 colorama==0.4.4
-cryptography==36.0.1
+cryptography==39.0.1
 fastapi==0.75.0
 h11==0.13.0
 httptools==0.3.0
